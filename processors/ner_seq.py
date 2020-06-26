@@ -83,6 +83,7 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
         #加入限制不转换
         # tokens = tokenizer.tokenize(example.text_a,["[SEP]"])
         tokens = tokenizer.tokenize(example.text_a)
+        print("tokens",tokens)
         print(tokenizer.encode_plus(tokens))
 
         

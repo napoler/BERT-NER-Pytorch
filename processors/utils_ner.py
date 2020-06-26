@@ -9,10 +9,15 @@ class CNerTokenizer(BertTokenizer):
         self.vocab_file = str(vocab_file)
         self.do_lower_case = do_lower_case
 
-    def tokenize(self, text):
+    def tokenize(self, text,unreplace=["[SEP]"]):
+        """
+        加入强制不处理字符
+        处理
+
+        """
         _tokens = []
         for c in text:
-            if c =="[SEP]":
+            if c in unreplace:
                 _tokens.append(c)
                 continue
             if self.do_lower_case:

@@ -141,16 +141,17 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
         # input_mask=token_encoded['token_type_ids']
         # print(len(token_encoded['token_type_ids']))
         # print(len(input_ids))
-        # do=0
-        # input_mask=[]
-        # for t in input_ids:
-        #     input_mask.append(do)
-        #     if t==102:
-        #         if do==0:
-        #             do=1
-        #         else:
-        #             do=0
-
+        print(input_mask)
+        do=0
+        input_mask=[]
+        for t in input_ids:
+            input_mask.append(do)
+            if t==102:
+                if do==0:
+                    do=1
+                else:
+                    do=0
+        print(input_mask)
 
         # tokenizer.encode_plus("你好吗"," 哈哈", add_special_tokens=True)
         input_len = len(label_ids)

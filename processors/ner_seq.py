@@ -89,7 +89,7 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
 
 
 
-        print(tokenizer.encode_plus(sents_list[0],sents_list[-1]))
+        print(tokenizer.encode_plus(sents_list[0],sents_list[-1]),add_special_tokens=True)
 
         
 

@@ -179,7 +179,7 @@ class TnerProcessor(DataProcessor):
         """See base class."""
         return self._create_examples(self._read_text(os.path.join(data_dir, "test.txt")), "test")
 
-    def get_labels(self):
+    def get_labels(self,data_dir):
         """See base class."""
         # return ["X",'B-CONT','B-EDU','B-LOC','B-NAME','B-ORG','B-PRO','B-RACE','B-TITLE',
         #         'I-CONT','I-EDU','I-LOC','I-NAME','I-ORG','I-PRO','I-RACE','I-TITLE',

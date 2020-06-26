@@ -12,7 +12,7 @@ class CNerTokenizer(BertTokenizer):
     def tokenize(self, text,unreplace=["[SEP]"]):
         """
         加入强制不处理字符
-        处理
+        保护特定字符
 
         """
         _tokens = []
@@ -27,7 +27,7 @@ class CNerTokenizer(BertTokenizer):
             else:
                 _tokens.append('[UNK]')
         return _tokens
-
+# encode_plus
 class DataProcessor(object):
     """Base class for data converters for sequence classification data sets."""
 

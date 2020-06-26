@@ -83,6 +83,9 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
         #加入限制不转换
         # tokens = tokenizer.tokenize(example.text_a,["[SEP]"])
         tokens = tokenizer.tokenize(example.text_a)
+        print(tokenizer.encode_plus(tokens))
+
+        
 
         label_ids = [label_map[x] for x in example.labels]
         # Account for [CLS] and [SEP] with "- 2".
@@ -126,12 +129,18 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
         # The mask has 1 for real tokens and 0 for padding tokens. Only real
         # tokens are attended to.
         input_mask = [1 if mask_padding_with_zero else 0] * len(input_ids)
+
+
+        # tokenizer.encode_plus("你好吗"," 哈哈", add_special_tokens=True)
         input_len = len(label_ids)
         # Zero-pad up to the sequence length.
         padding_length = max_seq_length - len(input_ids)
         if pad_on_left:
             input_ids = ([pad_token] * padding_length) + input_ids
             input_mask = ([0 if mask_padding_with_zero else 1] * padding_length) + input_mask
+
+
+
             segment_ids = ([pad_token_segment_id] * padding_length) + segment_ids
             label_ids = ([pad_token] * padding_length) + label_ids
         else:
@@ -207,6 +216,7 @@ class TnerProcessor(DataProcessor):
                 continue
             guid = "%s-%s" % (set_type, i)
             text_a= line['words']
+
             # BIOS
             labels = []
             for x in line['labels']:

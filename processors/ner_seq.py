@@ -90,7 +90,7 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
 
 
         # print(tokenizer.encode_plus(sents_list[0],sents_list[-1],add_special_tokens=True))
-        token_encoded=tokenizer.encode_plus(sents_list[0],sents_list[-1],add_special_tokens=True,max_length=max_seq_length)
+        token_encoded=tokenizer.encode_plus(sents_list[0],sents_list[-1],add_special_tokens=True,max_length=max_seq_length,stride=0)
         print(token_encoded)
         print(len(token_encoded['token_type_ids']))
 

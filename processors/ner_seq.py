@@ -137,7 +137,7 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
             segment_ids = [cls_token_segment_id] + segment_ids
 
 
-       do=0
+        do=0
         segment_ids=[]
         for t in tokens:
             segment_ids.append(do)

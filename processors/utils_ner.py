@@ -16,6 +16,8 @@ class CNerTokenizer(BertTokenizer):
                 c = c.lower()
             if c in self.vocab:
                 _tokens.append(c)
+            elif c =="[SEP]":
+                _tokens.append(c)
             else:
                 _tokens.append('[UNK]')
         return _tokens

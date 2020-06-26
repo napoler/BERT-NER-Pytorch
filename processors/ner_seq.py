@@ -87,10 +87,6 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
         # sents=''.join(tokens)
         # sents_list=sents.split("[SEP]")
 
-            
-                
-
-
 
 
         # # print(tokenizer.encode_plus(sents_list[0],sents_list[-1],add_special_tokens=True))
@@ -139,7 +135,12 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
             segment_ids = [cls_token_segment_id] + segment_ids
 
         input_ids = tokenizer.convert_tokens_to_ids(tokens)
-
+        # The mask has 1 for real tokens and 0 for padding tokens. Only real
+        # tokens are attended to.
+        # input_mask = [1 if mask_padding_with_zero else 0] * len(input_ids)
+        # input_mask=token_encoded['token_type_ids']
+        # print(len(token_encoded['token_type_ids']))
+        # print(len(input_ids))
         do=0
         input_mask=[]
         for t in input_ids:
@@ -149,17 +150,6 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
                     do=1
                 else:
                     do=0
-
-        # The mask has 1 for real tokens and 0 for padding tokens. Only real
-        # tokens are attended to.
-        # input_mask = [1 if mask_padding_with_zero else 0] * len(input_ids)
-        
-        # print("input_mask",input_mask)
-        # # input_mask=token_encoded['token_type_ids']
-        # print("input_mask",input_mask)
-        # # print(len(token_encoded['token_type_ids']))
-        # print(len(input_ids))
-        
 
 
         # tokenizer.encode_plus("你好吗"," 哈哈", add_special_tokens=True)

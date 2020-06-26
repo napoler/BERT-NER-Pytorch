@@ -333,12 +333,10 @@ def load_and_cache_examples(args, task, tokenizer, data_type='train'):
         features = torch.load(cached_features_file)
     else:
         logger.info("Creating features from dataset file at %s", args.data_dir)
-        try:
-            label_list = processor.get_labels()
-            pass
-        except :
+        if task=="tner":
             label_list = processor.get_labels(args.data_dir)
-            pass
+        else:
+            label_list = processor.get_labels()
         # label_list = processor.get_labels()
         if data_type == 'train':
             examples = processor.get_train_examples(args.data_dir)

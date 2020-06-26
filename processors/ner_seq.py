@@ -84,7 +84,7 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
         # tokens = tokenizer.tokenize(example.text_a,["[SEP]"])
         tokens = tokenizer.tokenize(example.text_a)
         print("tokens",tokens)
-        sents=' '.join(tokens)
+        sents=''.join(tokens)
         sents_list=sents.split("[SEP]")
 
 

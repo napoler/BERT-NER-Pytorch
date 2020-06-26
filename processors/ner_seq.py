@@ -155,6 +155,56 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
     return features
 
 
+class TnerProcessor(DataProcessor):
+    """Processor for the chinese ner data set."""
+    def _read_label(self,input_file):
+        lines = []
+        with open(input_file,'r') as f:
+            words = []
+            labels = []
+            for line in f:
+                l=line.replace("\n",'')
+                if len(l)>0:
+                    lines.append(l)
+        return lines
+    def get_train_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(self._read_text(os.path.join(data_dir, "train.txt")), "train")
+
+    def get_dev_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(self._read_text(os.path.join(data_dir, "dev.txt")), "dev")
+
+    def get_test_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(self._read_text(os.path.join(data_dir, "test.txt")), "test")
+
+    def get_labels(self):
+        """See base class."""
+        # return ["X",'B-CONT','B-EDU','B-LOC','B-NAME','B-ORG','B-PRO','B-RACE','B-TITLE',
+        #         'I-CONT','I-EDU','I-LOC','I-NAME','I-ORG','I-PRO','I-RACE','I-TITLE',
+        #         'O','S-NAME','S-ORG','S-RACE',"[START]", "[END]"]
+        return self._read_label(os.path.join(data_dir, "labels.txt"))
+
+    def _create_examples(self, lines, set_type):
+        """Creates examples for the training and dev sets."""
+        examples = []
+        for (i, line) in enumerate(lines):
+            if i == 0:
+                continue
+            guid = "%s-%s" % (set_type, i)
+            text_a= line['words']
+            # BIOS
+            labels = []
+            for x in line['labels']:
+                if 'M-' in x:
+                    labels.append(x.replace('M-','I-'))
+                elif 'E-' in x:
+                    labels.append(x.replace('E-', 'I-'))
+                else:
+                    labels.append(x)
+            examples.append(InputExample(guid=guid, text_a=text_a, labels=labels))
+        return examples
 class CnerProcessor(DataProcessor):
     """Processor for the chinese ner data set."""
 
@@ -233,6 +283,7 @@ class CluenerProcessor(DataProcessor):
         return examples
 
 ner_processors = {
+    "tner": TnerProcessor,
     "cner": CnerProcessor,
     'cluener':CluenerProcessor
 }

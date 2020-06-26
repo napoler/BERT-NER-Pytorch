@@ -125,6 +125,8 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
         label_ids += [label_map['O']]
         segment_ids = [sequence_a_segment_id] * len(tokens)
 
+
+
         if cls_token_at_end:
             tokens += [cls_token]
             label_ids += [label_map['O']]
@@ -133,6 +135,19 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
             tokens = [cls_token] + tokens
             label_ids = [label_map['O']] + label_ids
             segment_ids = [cls_token_segment_id] + segment_ids
+
+
+       do=0
+        segment_ids=[]
+        for t in tokens:
+            segment_ids.append(do)
+            if t=="[SEP]":
+                if do==0:
+                    do=1
+                else:
+                    do=0
+        print(segment_ids)
+
 
         input_ids = tokenizer.convert_tokens_to_ids(tokens)
         # The mask has 1 for real tokens and 0 for padding tokens. Only real

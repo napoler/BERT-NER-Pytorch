@@ -184,7 +184,16 @@ class TnerProcessor(DataProcessor):
         # return ["X",'B-CONT','B-EDU','B-LOC','B-NAME','B-ORG','B-PRO','B-RACE','B-TITLE',
         #         'I-CONT','I-EDU','I-LOC','I-NAME','I-ORG','I-PRO','I-RACE','I-TITLE',
         #         'O','S-NAME','S-ORG','S-RACE',"[START]", "[END]"]
-        return self._read_label(os.path.join(data_dir, "labels.txt"))
+        labels=[]
+        or_labels= self._read_label(os.path.join(data_dir, "labels.txt"))
+        for x in or_labels:
+            if 'M-' in x:
+                labels.append(x.replace('M-','I-'))
+            elif 'E-' in x:
+                labels.append(x.replace('E-', 'I-'))
+            else:
+                labels.append(x)
+        return list(set(labels))
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""

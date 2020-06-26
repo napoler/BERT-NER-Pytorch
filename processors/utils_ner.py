@@ -12,11 +12,12 @@ class CNerTokenizer(BertTokenizer):
     def tokenize(self, text):
         _tokens = []
         for c in text:
+            if c =="[SEP]":
+                _tokens.append(c)
+                continue
             if self.do_lower_case:
                 c = c.lower()
             if c in self.vocab:
-                _tokens.append(c)
-            elif c =="[SEP]":
                 _tokens.append(c)
             else:
                 _tokens.append('[UNK]')

@@ -83,16 +83,20 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
         #加入限制不转换
         # tokens = tokenizer.tokenize(example.text_a,["[SEP]"])
         tokens = tokenizer.tokenize(example.text_a)
-        print("tokens",tokens)
-        sents=''.join(tokens)
-        sents_list=sents.split("[SEP]")
+        # print("tokens",tokens)
+        # sents=''.join(tokens)
+        # sents_list=sents.split("[SEP]")
+
+            
+                
 
 
 
-        # print(tokenizer.encode_plus(sents_list[0],sents_list[-1],add_special_tokens=True))
-        token_encoded=tokenizer.encode_plus(sents_list[0],sents_list[-1],add_special_tokens=True,max_length=max_seq_length)
-        print(token_encoded)
-        print(len(token_encoded['token_type_ids']))
+
+        # # print(tokenizer.encode_plus(sents_list[0],sents_list[-1],add_special_tokens=True))
+        # token_encoded=tokenizer.encode_plus(sents_list[0],sents_list[-1],add_special_tokens=True,max_length=max_seq_length)
+        # print(token_encoded)
+        # print(len(token_encoded['token_type_ids']))
 
         
 
@@ -135,13 +139,24 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
             segment_ids = [cls_token_segment_id] + segment_ids
 
         input_ids = tokenizer.convert_tokens_to_ids(tokens)
+
+        do=0
+        input_mask=[]
+        for t in input_ids:
+            input_mask.append(do)
+            if t==102:
+                if do==0:
+                    do=1
+                else:
+                    do=0
+
         # The mask has 1 for real tokens and 0 for padding tokens. Only real
         # tokens are attended to.
-        input_mask = [1 if mask_padding_with_zero else 0] * len(input_ids)
+        # input_mask = [1 if mask_padding_with_zero else 0] * len(input_ids)
         print("input_mask",input_mask)
-        input_mask=token_encoded['token_type_ids']
+        # input_mask=token_encoded['token_type_ids']
         print("input_mask",input_mask)
-        print(len(token_encoded['token_type_ids']))
+        # print(len(token_encoded['token_type_ids']))
         print(len(input_ids))
         
 

@@ -333,10 +333,16 @@ def load_and_cache_examples(args, task, tokenizer, data_type='train'):
         features = torch.load(cached_features_file)
     else:
         logger.info("Creating features from dataset file at %s", args.data_dir)
-        if task=="tner":
-            label_list = processor.get_labels(args.data_dir)
-        else:
+        try:
             label_list = processor.get_labels()
+            pass
+        except :
+            label_list = processor.get_labels(args.data_dir)
+            pass
+        # if task=="tner":
+        #     label_list = processor.get_labels(args.data_dir)
+        # else:
+        #     label_list = processor.get_labels()
         # label_list = processor.get_labels()
         if data_type == 'train':
             examples = processor.get_train_examples(args.data_dir)
@@ -415,7 +421,13 @@ def main():
     if args.task_name not in processors:
         raise ValueError("Task not found: %s" % (args.task_name))
     processor = processors[args.task_name]()
-    label_list = processor.get_labels()
+    # label_list = processor.get_labels()
+    try:
+        label_list = processor.get_labels()
+        pass
+    except :
+        label_list = processor.get_labels(args.data_dir)
+        pass
     args.id2label = {i: label for i, label in enumerate(label_list)}
     args.label2id = {label: i for i, label in enumerate(label_list)}
     num_labels = len(label_list)

@@ -146,7 +146,7 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
                     do=1
                 else:
                     do=0
-        print(segment_ids)
+        # print(segment_ids)
 
 
         input_ids = tokenizer.convert_tokens_to_ids(tokens)

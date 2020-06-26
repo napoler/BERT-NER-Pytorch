@@ -185,7 +185,7 @@ class TnerProcessor(DataProcessor):
         #         'I-CONT','I-EDU','I-LOC','I-NAME','I-ORG','I-PRO','I-RACE','I-TITLE',
         #         'O','S-NAME','S-ORG','S-RACE',"[START]", "[END]"]
         labels=[]
-        or_labels= self._read_label(os.path.join(data_dir, "labels.txt"))
+        or_labels= self._read_label(os.path.join(data_dir, "labels_bios.txt"))
         for x in or_labels:
             if 'M-' in x:
                 labels.append(x.replace('M-','I-'))

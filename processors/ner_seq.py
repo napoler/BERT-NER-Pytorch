@@ -193,7 +193,8 @@ class TnerProcessor(DataProcessor):
                 labels.append(x.replace('E-', 'I-'))
             else:
                 labels.append(x)
-        return list(set(labels))
+        # return list(set(labels))
+        return labels
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
